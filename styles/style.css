@@ -84,8 +84,13 @@ body * {
 }
 
 .buttons {
-    display: flex;
+	display: flex;
+	align-items: center;
     margin-top: 80px;
+}
+
+.dots-container {
+	display: flex;
 }
 
 .left-btn, .right-btn, .dot {
@@ -93,25 +98,22 @@ body * {
 }
 
 .left-btn {
-    margin-right: 30px;
+    margin-right: 21px;
 }
 
 .right-btn {
-    margin-left: 30px;
-}
-
-.middle-dot {
-    margin: 0px 18px 0px;
+    margin-left: 21px;
 }
 
 .dot {
     width: 9.57px;
-    height: 9.57px;
+	height: 9.57px;
+	margin: 0 9px;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-.active {
+.first_dot {
     background-color: #FFFFFF;
 }
 
@@ -119,6 +121,7 @@ body * {
 	width: 679px;
 	height: 482px;
 	margin-top: 53px;
+	background-image: url("../images/image 1.jpg");
 }
 
 .about_project_left {
@@ -140,8 +143,4 @@ body * {
 
 .left_features {
 	margin-right: 50px;
-}
-
-.hide {
-	display: none;
 }

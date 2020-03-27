@@ -1,38 +1,81 @@
-let slides = document.getElementsByClassName("slide");
-let dots = document.getElementsByClassName("dot");
-let features = document.getElementsByClassName("feature");
-let links = document.getElementsByClassName("link_in_content_projects");
-let slideIndex = 1;
-let slidesLen = slides.length;
+const entities = [
+    {
+        city: "Rostov-on-Don<br>LCD admiral",
+        repairTime: "3.5 months",
+        apartmentArea: "81 m<sup>2</sup>",
+        img: "images/image 1.jpg"
+    },
 
-function showSlides() {
-    if (slideIndex > slidesLen) {
-        slideIndex = 1;
-    } else if (slideIndex < 1) {
-        slideIndex = slidesLen;
+    {
+        city: "Sochi<br>Thieves",
+        repairTime: "4 months",
+        apartmentArea: "105 m<sup>2</sup>",
+        img: "images/image 2.jpg"
+    },
+
+    {
+        city: "Rostov-on-Don<br>Patriotic",
+        repairTime: "3 months",
+        apartmentArea: "93 m<sup>2</sup>",
+        img: "images/image 3.jpg"
     }
+]
 
-    for (let i = 0; i < slidesLen; i++) {
-        slides[i].classList.add("hide");
+const city = document.querySelector(".city");
+const repairTime = document.querySelector(".repair_time");
+const apartmentArea = document.querySelector(".apartment_area");
+const img = document.querySelector(".slide");
+const dotsContainer = document.querySelector(".dots-container");
+
+for (let i = 0; i < entities.length; i++) {
+    let dot = document.createElement("div");
+    dot.className = "dot";
+    if (i === 0) {
+        dot.classList.add("first_dot");
+    }
+    dotsContainer.append(dot);
+}
+
+const dots = document.querySelectorAll(".dot");
+const links = document.querySelectorAll(".link_in_content_projects");
+
+dots.forEach((dot, index) => dot.addEventListener('click', () => { currentSlide(index); }));
+links.forEach((link, index) => link.addEventListener('click', () => { currentSlide(index); }))
+
+const setEntity = (index) => {
+    city.innerHTML = entities[index].city;
+    repairTime.innerHTML = entities[index].repairTime;
+    apartmentArea.innerHTML = entities[index].apartmentArea;
+    img.style.backgroundImage = `url(\"${entities[index].img}\")`;
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].style.backgroundColor = "rgba(255, 255, 255, 0.3)";
         links[i].classList.remove("active_link");
-        dots[i].classList.remove("active");
-        for (let k = 0; i + slidesLen * k < features.length; k++) {
-            features[i + slidesLen * k].classList.add("hide");
-        }
     }
-
-    slides[slideIndex - 1].classList.remove("hide");
-    links[slideIndex - 1].classList.add("active_link");
-    dots[slideIndex - 1].classList.add("active");
-    for (let i = 0; i < slidesLen; i++) {
-        features[slideIndex - 1 + i * 3].classList.remove("hide");
-    }
+    links[index].classList.add("active_link");
+    dots[index].style.backgroundColor = "#FFFFFF";
 }
 
-function toggleSlide(n) {
-    showSlides(slideIndex += n);
-}
+const next = document.querySelector(".right-btn");
+const prev = document.querySelector(".left-btn");
+let currentIndex = 0;
 
-function currentSlide(n) {
-    showSlides(slideIndex = n);
+prev.addEventListener('click', () => {
+    if (currentIndex == 0) {
+        currentIndex = entities.length;
+    }
+
+    setEntity(currentIndex - 1);
+    currentIndex -= 1;
+})
+next.addEventListener('click', () => {
+    if (currentIndex == entities.length - 1) {
+        currentIndex = -1;
+    }
+
+    setEntity(currentIndex + 1);
+    currentIndex += 1;
+})
+
+const currentSlide = (index) => {
+    setEntity(index);
 }
