@@ -78,4 +78,5 @@ next.addEventListener('click', () => {
 
 const currentSlide = (index) => {
     setEntity(index);
+    currentIndex = index;
 }
